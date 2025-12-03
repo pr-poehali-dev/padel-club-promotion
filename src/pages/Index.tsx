@@ -86,7 +86,10 @@ const Index = () => {
         <nav className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-300 via-green-400 to-green-500" />
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-400 relative overflow-hidden">
+                <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-gray-300 opacity-40"></div>
+                <div className="absolute bottom-2 left-1 w-6 h-1 bg-gray-300 opacity-50 rounded-full transform rotate-12"></div>
+              </div>
               <span className="text-lg sm:text-xl font-bold font-montserrat">PADEL КЛУБ ЗВИ</span>
             </div>
             
@@ -96,7 +99,7 @@ const Index = () => {
                   <Icon name="Menu" />
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-background/95 backdrop-blur-xl border-none max-w-md">
+              <DialogContent className="bg-background/70 backdrop-blur-md border-none max-w-md shadow-2xl">
                 <div className="flex flex-col gap-2 py-4">
                   <button 
                     onClick={() => scrollToSection('hero')} 
@@ -561,7 +564,10 @@ const Index = () => {
       <footer className="bg-foreground text-background py-6">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-300 via-green-400 to-green-500" />
+            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-400 relative overflow-hidden">
+              <div className="absolute top-0.5 right-0.5 w-3 h-3 rounded-full bg-gray-300 opacity-40"></div>
+              <div className="absolute bottom-1 left-0.5 w-4 h-0.5 bg-gray-300 opacity-50 rounded-full transform rotate-12"></div>
+            </div>
             <span className="text-lg font-bold font-montserrat">PADEL КЛУБ ЗВИ</span>
           </div>
           <p className="text-xs opacity-70">© 2024 Padel Club. Все права защищены.</p>
