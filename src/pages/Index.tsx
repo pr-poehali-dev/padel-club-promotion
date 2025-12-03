@@ -155,7 +155,7 @@ const Index = () => {
       </header>
 
       <main className="pt-16">
-        <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <img 
               src={galleryImages[0]} 
@@ -165,67 +165,60 @@ const Index = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
           </div>
           
-          <div className="container mx-auto px-4 py-8 relative z-10 text-white animate-fade-in">
-            <div className="text-center mb-8">
-              <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold font-montserrat mb-2">
-                PADEL CLUB
-              </h1>
-              <p className="text-base sm:text-lg md:text-xl opacity-90">Завод имени Ильича, Москва</p>
-            </div>
+          <div className="container mx-auto px-4 relative z-10 text-center text-white animate-fade-in">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold font-montserrat mb-4">
+              PADEL CLUB
+            </h1>
+            <p className="text-lg sm:text-xl md:text-2xl mb-2 opacity-90">Завод имени Ильича</p>
+            <p className="text-sm sm:text-base md:text-lg mb-8 opacity-75">Москва</p>
             
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-4xl mx-auto mb-6">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
               <Button 
                 size="lg" 
-                className="h-24 flex flex-col gap-2 bg-primary hover:bg-primary/90"
+                className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-primary hover:bg-primary/90 w-full sm:w-auto"
                 onClick={() => scrollToSection('booking')}
               >
-                <Icon name="Calendar" size={28} />
-                <span className="text-sm">Бронирование</span>
+                <Icon name="Calendar" className="mr-2" />
+                Забронировать корт
               </Button>
               <Button 
                 size="lg" 
                 variant="outline"
-                className="h-24 flex flex-col gap-2 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
-                onClick={() => scrollToSection('courts')}
-              >
-                <Icon name="MapPin" size={28} />
-                <span className="text-sm">Корты</span>
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="h-24 flex flex-col gap-2 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
-                onClick={() => scrollToSection('pricing')}
-              >
-                <Icon name="DollarSign" size={28} />
-                <span className="text-sm">Тарифы</span>
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="h-24 flex flex-col gap-2 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
+                className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 w-full sm:w-auto"
                 onClick={() => scrollToSection('services')}
               >
-                <Icon name="Sparkles" size={28} />
-                <span className="text-sm">Услуги</span>
+                <Icon name="Info" className="mr-2" />
+                Наши услуги
+              </Button>
+            </div>
+            
+            <div className="mt-8 flex flex-wrap gap-4 justify-center">
+              <Button 
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/10 text-sm"
+                onClick={() => scrollToSection('courts')}
+              >
+                <Icon name="MapPin" className="mr-2" size={16} />
+                Корты
               </Button>
               <Button 
-                size="lg" 
-                variant="outline"
-                className="h-24 flex flex-col gap-2 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/10 text-sm"
+                onClick={() => scrollToSection('gallery')}
+              >
+                <Icon name="Image" className="mr-2" size={16} />
+                Галерея
+              </Button>
+              <Button 
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/10 text-sm"
                 onClick={() => scrollToSection('contacts')}
               >
-                <Icon name="Phone" size={28} />
-                <span className="text-sm">Контакты</span>
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="h-24 flex flex-col gap-2 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
-                onClick={() => scrollToSection('about')}
-              >
-                <Icon name="Info" size={28} />
-                <span className="text-sm">О клубе</span>
+                <Icon name="Phone" className="mr-2" size={16} />
+                Контакты
               </Button>
             </div>
           </div>
