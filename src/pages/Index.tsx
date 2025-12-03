@@ -195,10 +195,10 @@ const Index = () => {
                 size="lg" 
                 variant="outline"
                 className="h-24 flex flex-col gap-2 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
-                onClick={() => scrollToSection('gallery')}
+                onClick={() => scrollToSection('pricing')}
               >
-                <Icon name="Image" size={28} />
-                <span className="text-sm">Галерея</span>
+                <Icon name="DollarSign" size={28} />
+                <span className="text-sm">Тарифы</span>
               </Button>
               <Button 
                 size="lg" 
