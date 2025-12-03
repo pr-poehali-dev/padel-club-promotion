@@ -82,7 +82,7 @@ const Index = () => {
         <nav className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-300 to-green-500 border-2 border-green-600" />
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-300 to-green-500" />
               <span className="text-lg sm:text-xl font-bold font-montserrat">PADEL КЛУБ ЗВИ</span>
             </div>
             
@@ -557,7 +557,7 @@ const Index = () => {
       <footer className="bg-foreground text-background py-6">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-300 to-green-500 border-2 border-green-600" />
+            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-300 to-green-500" />
             <span className="text-lg font-bold font-montserrat">PADEL КЛУБ ЗВИ</span>
           </div>
           <p className="text-xs opacity-70">© 2024 Padel Club. Все права защищены.</p>
