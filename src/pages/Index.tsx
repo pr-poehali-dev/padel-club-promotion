@@ -5,7 +5,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Badge } from '@/components/ui/badge';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
@@ -14,9 +14,13 @@ const Index = () => {
   const [selectedLevel, setSelectedLevel] = useState<string>('');
   const [selectedCourt, setSelectedCourt] = useState<string>('');
   const [bookingStep, setBookingStep] = useState<'date' | 'time' | 'court' | 'level' | 'confirm'>('date');
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    setMenuOpen(false);
+    setTimeout(() => {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   useEffect(() => {
@@ -86,14 +90,14 @@ const Index = () => {
               <span className="text-lg sm:text-xl font-bold font-montserrat">PADEL КЛУБ ЗВИ</span>
             </div>
             
-            <Sheet>
-              <SheetTrigger asChild>
+            <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
+              <DialogTrigger asChild>
                 <Button variant="ghost" size="icon" className="hover:bg-primary/10">
                   <Icon name="Menu" />
                 </Button>
-              </SheetTrigger>
-              <SheetContent className="w-[300px] sm:w-[400px] bg-background/80 backdrop-blur-md">
-                <div className="flex flex-col gap-1 mt-12">
+              </DialogTrigger>
+              <DialogContent className="bg-background/95 backdrop-blur-xl border-none max-w-md">
+                <div className="flex flex-col gap-2 py-4">
                   <button 
                     onClick={() => scrollToSection('hero')} 
                     className="text-left px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-all font-semibold flex items-center gap-3 group"
@@ -144,8 +148,8 @@ const Index = () => {
                     <span>Контакты</span>
                   </button>
                 </div>
-              </SheetContent>
-            </Sheet>
+              </DialogContent>
+            </Dialog>
           </div>
         </nav>
       </header>
