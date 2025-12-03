@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar } from '@/components/ui/calendar';
@@ -19,6 +19,25 @@ const Index = () => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   const timeSlots = ['09:00', '10:30', '12:00', '13:30', '15:00', '16:30', '18:00', '19:30', '21:00'];
   const playerLevels = ['Начинающий', 'Любитель', 'Продвинутый', 'Профессионал'];
 
@@ -29,10 +48,10 @@ const Index = () => {
   ];
 
   const services = [
-    { icon: 'Trophy', title: 'Тренировки', desc: 'Индивидуальные и групповые занятия' },
-    { icon: 'Users', title: 'Турниры', desc: 'Соревнования для всех уровней' },
-    { icon: 'ShoppingBag', title: 'Магазин', desc: 'Оборудование и экипировка' },
-    { icon: 'Coffee', title: 'Кафе', desc: 'Зона отдыха с напитками' }
+    { icon: 'Trophy', title: 'Тренировки', desc: 'Индивидуальные и групповые занятия', color: 'from-orange-500 to-red-500' },
+    { icon: 'Users', title: 'Турниры', desc: 'Соревнования для всех уровней', color: 'from-blue-500 to-cyan-500' },
+    { icon: 'ShoppingBag', title: 'Магазин', desc: 'Оборудование и экипировка', color: 'from-purple-500 to-pink-500' },
+    { icon: 'Coffee', title: 'Кафе', desc: 'Зона отдыха с напитками', color: 'from-amber-500 to-yellow-500' }
   ];
 
   const galleryImages = [
@@ -56,7 +75,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <header className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
         <nav className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
@@ -99,15 +118,15 @@ const Index = () => {
           </div>
           
           <div className="container mx-auto px-4 relative z-10 text-center text-white animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold font-montserrat mb-4">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold font-montserrat mb-4">
               PADEL CLUB
             </h1>
-            <p className="text-xl md:text-2xl mb-2 opacity-90">Завод имени Ильича</p>
-            <p className="text-base md:text-lg mb-8 opacity-75">Москва</p>
+            <p className="text-lg sm:text-xl md:text-2xl mb-2 opacity-90">Завод имени Ильича</p>
+            <p className="text-sm sm:text-base md:text-lg mb-8 opacity-75">Москва</p>
             
             <Button 
               size="lg" 
-              className="text-lg px-8 py-6 bg-primary hover:bg-primary/90"
+              className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-primary hover:bg-primary/90"
               onClick={() => scrollToSection('booking')}
             >
               <Icon name="Calendar" className="mr-2" />
@@ -116,14 +135,14 @@ const Index = () => {
           </div>
         </section>
 
-        <section id="booking" className="py-8 px-4 bg-background">
+        <section id="booking" className="py-8 px-4 bg-background scroll-animate opacity-0">
           <div className="container mx-auto max-w-2xl">
-            <h2 className="text-3xl font-bold font-montserrat mb-6 text-center">Бронирование</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold font-montserrat mb-6 text-center">Бронирование</h2>
             
-            <div className="flex justify-between mb-6">
+            <div className="flex justify-between mb-6 px-2">
               {['date', 'time', 'court', 'level', 'confirm'].map((step, index) => (
                 <div key={step} className="flex flex-col items-center flex-1">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                  <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold ${
                     bookingStep === step ? 'bg-primary text-white' : 
                     ['date', 'time', 'court', 'level', 'confirm'].indexOf(bookingStep) > index ? 'bg-primary/20 text-primary' : 
                     'bg-muted text-muted-foreground'
@@ -135,16 +154,18 @@ const Index = () => {
             </div>
 
             <Card>
-              <CardContent className="pt-6">
+              <CardContent className="pt-6 px-3 sm:px-6">
                 {bookingStep === 'date' && (
                   <div className="space-y-4">
-                    <h3 className="text-xl font-semibold mb-4">Выберите дату</h3>
-                    <Calendar
-                      mode="single"
-                      selected={date}
-                      onSelect={setDate}
-                      className="rounded-md border mx-auto"
-                    />
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4">Выберите дату</h3>
+                    <div className="flex justify-center w-full overflow-hidden">
+                      <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={setDate}
+                        className="rounded-md border scale-90 sm:scale-100 origin-center"
+                      />
+                    </div>
                     <Button 
                       className="w-full" 
                       size="lg"
@@ -158,14 +179,14 @@ const Index = () => {
 
                 {bookingStep === 'time' && (
                   <div className="space-y-4">
-                    <h3 className="text-xl font-semibold mb-4">Выберите время</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4">Выберите время</h3>
                     <div className="grid grid-cols-3 gap-2">
                       {timeSlots.map((time) => (
                         <Button
                           key={time}
                           variant={selectedTime === time ? 'default' : 'outline'}
                           onClick={() => setSelectedTime(time)}
-                          className="w-full"
+                          className="w-full text-xs sm:text-sm"
                         >
                           {time}
                         </Button>
@@ -188,7 +209,7 @@ const Index = () => {
 
                 {bookingStep === 'court' && (
                   <div className="space-y-4">
-                    <h3 className="text-xl font-semibold mb-4">Выберите корт</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4">Выберите корт</h3>
                     <div className="space-y-2">
                       {courts.map((court) => (
                         <Button
@@ -199,9 +220,9 @@ const Index = () => {
                           className="w-full h-auto py-4 justify-start"
                         >
                           <div className="text-left">
-                            <div className="font-semibold">{court.name}</div>
-                            <div className="text-sm opacity-75">{court.surface}</div>
-                            {!court.available && <Badge variant="secondary" className="mt-1">Занято</Badge>}
+                            <div className="font-semibold text-sm sm:text-base">{court.name}</div>
+                            <div className="text-xs sm:text-sm opacity-75">{court.surface}</div>
+                            {!court.available && <Badge variant="secondary" className="mt-1 text-xs">Занято</Badge>}
                           </div>
                         </Button>
                       ))}
@@ -223,7 +244,7 @@ const Index = () => {
 
                 {bookingStep === 'level' && (
                   <div className="space-y-4">
-                    <h3 className="text-xl font-semibold mb-4">Ваш уровень игры</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4">Ваш уровень игры</h3>
                     <Select value={selectedLevel} onValueChange={setSelectedLevel}>
                       <SelectTrigger className="h-12">
                         <SelectValue placeholder="Выберите уровень" />
@@ -253,21 +274,21 @@ const Index = () => {
 
                 {bookingStep === 'confirm' && (
                   <div className="space-y-4">
-                    <h3 className="text-xl font-semibold mb-4">Подтверждение</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4">Подтверждение</h3>
                     <div className="space-y-3 bg-muted/50 p-4 rounded-lg">
-                      <div className="flex justify-between">
+                      <div className="flex justify-between text-sm sm:text-base">
                         <span className="text-muted-foreground">Дата:</span>
                         <span className="font-semibold">{date?.toLocaleDateString('ru-RU')}</span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex justify-between text-sm sm:text-base">
                         <span className="text-muted-foreground">Время:</span>
                         <span className="font-semibold">{selectedTime}</span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex justify-between text-sm sm:text-base">
                         <span className="text-muted-foreground">Корт:</span>
                         <span className="font-semibold">Корт №{selectedCourt}</span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex justify-between text-sm sm:text-base">
                         <span className="text-muted-foreground">Уровень:</span>
                         <span className="font-semibold">{selectedLevel}</span>
                       </div>
@@ -288,7 +309,7 @@ const Index = () => {
           </div>
         </section>
 
-        <section id="about" className="relative py-20 overflow-hidden">
+        <section id="about" className="relative py-20 overflow-hidden scroll-animate opacity-0">
           <div className="absolute inset-0">
             <img 
               src={galleryImages[1]} 
@@ -299,34 +320,34 @@ const Index = () => {
           </div>
           <div className="container mx-auto px-4 relative z-10 text-white">
             <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold font-montserrat mb-6">О клубе</h2>
-              <p className="text-lg mb-4 opacity-90">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-montserrat mb-6">О клубе</h2>
+              <p className="text-base sm:text-lg mb-4 opacity-90 px-2">
                 Padel Club на заводе имени Ильича — уникальное пространство, где индустриальная эстетика 
                 сочетается с современным спортом.
               </p>
-              <p className="text-base opacity-80">
+              <p className="text-sm sm:text-base opacity-80 px-2">
                 Три профессиональных корта с качественным покрытием и отличным освещением.
               </p>
             </div>
           </div>
         </section>
 
-        <section id="courts" className="py-12 px-4 bg-background">
+        <section id="courts" className="py-12 px-4 bg-background scroll-animate opacity-0">
           <div className="container mx-auto max-w-2xl">
-            <h2 className="text-3xl font-bold font-montserrat mb-6 text-center">Корты</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold font-montserrat mb-6 text-center">Корты</h2>
             <div className="space-y-4">
               {courts.map((court) => (
                 <Card key={court.id} className="overflow-hidden">
                   <CardHeader className="pb-3">
-                    <CardTitle className="flex items-center justify-between">
+                    <CardTitle className="flex items-center justify-between text-base sm:text-lg">
                       <span>{court.name}</span>
                       {court.available ? (
-                        <Badge variant="secondary" className="bg-green-500/10 text-green-500">Доступен</Badge>
+                        <Badge variant="secondary" className="bg-green-500/10 text-green-500 text-xs">Доступен</Badge>
                       ) : (
-                        <Badge variant="secondary">Занято</Badge>
+                        <Badge variant="secondary" className="text-xs">Занято</Badge>
                       )}
                     </CardTitle>
-                    <CardDescription>{court.surface}</CardDescription>
+                    <CardDescription className="text-xs sm:text-sm">{court.surface}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="flex flex-wrap gap-2">
@@ -346,9 +367,9 @@ const Index = () => {
           </div>
         </section>
 
-        <section id="gallery" className="py-12 px-4 bg-muted/30">
+        <section id="gallery" className="py-12 px-4 bg-muted/30 scroll-animate opacity-0">
           <div className="container mx-auto max-w-2xl">
-            <h2 className="text-3xl font-bold font-montserrat mb-6 text-center">Галерея</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold font-montserrat mb-6 text-center">Галерея</h2>
             <Carousel className="w-full">
               <CarouselContent>
                 {galleryImages.map((image, index) => (
@@ -369,26 +390,37 @@ const Index = () => {
           </div>
         </section>
 
-        <section id="services" className="py-12 px-4 bg-background">
-          <div className="container mx-auto max-w-2xl">
-            <h2 className="text-3xl font-bold font-montserrat mb-6 text-center">Услуги</h2>
-            <div className="grid grid-cols-2 gap-4">
+        <section id="services" className="py-16 px-4 bg-background scroll-animate opacity-0">
+          <div className="container mx-auto max-w-5xl">
+            <h2 className="text-2xl sm:text-3xl font-bold font-montserrat mb-12 text-center">Услуги</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {services.map((service, index) => (
-                <Card key={index} className="text-center">
-                  <CardHeader className="pb-2">
-                    <div className="mx-auto mb-2 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Icon name={service.icon as any} size={24} className="text-primary" />
+                <div 
+                  key={index} 
+                  className="group relative overflow-hidden rounded-2xl bg-gradient-to-br p-[2px] hover:scale-105 transition-all duration-300"
+                  style={{
+                    backgroundImage: `linear-gradient(135deg, var(--tw-gradient-stops))`,
+                  }}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-50 group-hover:opacity-70 transition-opacity`} />
+                  <div className="relative bg-background rounded-2xl p-6 h-full">
+                    <div className={`mb-4 w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-lg`}>
+                      <Icon name={service.icon as any} size={28} className="text-white" />
                     </div>
-                    <CardTitle className="text-base">{service.title}</CardTitle>
-                    <CardDescription className="text-xs">{service.desc}</CardDescription>
-                  </CardHeader>
-                </Card>
+                    <h3 className="text-lg font-bold font-montserrat mb-2">{service.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{service.desc}</p>
+                    <div className="mt-4 flex items-center text-sm font-semibold text-primary group-hover:translate-x-2 transition-transform">
+                      Подробнее
+                      <Icon name="ArrowRight" size={16} className="ml-1" />
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="contacts" className="relative py-20 overflow-hidden">
+        <section id="contacts" className="relative py-20 overflow-hidden scroll-animate opacity-0">
           <div className="absolute inset-0">
             <img 
               src={galleryImages[2]} 
@@ -399,35 +431,35 @@ const Index = () => {
           </div>
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-2xl mx-auto">
-              <h2 className="text-3xl font-bold font-montserrat mb-6 text-center text-white">Контакты</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold font-montserrat mb-6 text-center text-white">Контакты</h2>
               <Card className="bg-white/95 backdrop-blur">
                 <CardContent className="pt-6 space-y-4">
                   <div className="flex items-start gap-3">
                     <Icon name="MapPin" className="text-primary mt-1 flex-shrink-0" size={20} />
-                    <div>
-                      <div className="font-semibold text-sm">Адрес</div>
-                      <div className="text-sm text-muted-foreground">Завод имени Ильича, Москва</div>
+                    <div className="min-w-0">
+                      <div className="font-semibold text-xs sm:text-sm">Адрес</div>
+                      <div className="text-xs sm:text-sm text-muted-foreground break-words">Завод имени Ильича, Москва</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Icon name="Phone" className="text-primary mt-1 flex-shrink-0" size={20} />
-                    <div>
-                      <div className="font-semibold text-sm">Телефон</div>
-                      <div className="text-sm text-muted-foreground">+7 (495) 123-45-67</div>
+                    <div className="min-w-0">
+                      <div className="font-semibold text-xs sm:text-sm">Телефон</div>
+                      <div className="text-xs sm:text-sm text-muted-foreground">+7 (495) 123-45-67</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Icon name="Mail" className="text-primary mt-1 flex-shrink-0" size={20} />
-                    <div>
-                      <div className="font-semibold text-sm">Email</div>
-                      <div className="text-sm text-muted-foreground">info@padelclub.ru</div>
+                    <div className="min-w-0">
+                      <div className="font-semibold text-xs sm:text-sm">Email</div>
+                      <div className="text-xs sm:text-sm text-muted-foreground break-all">info@padelclub.ru</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Icon name="Instagram" className="text-primary mt-1 flex-shrink-0" size={20} />
-                    <div>
-                      <div className="font-semibold text-sm">Instagram</div>
-                      <div className="text-sm text-muted-foreground">@padelclub_ilyich</div>
+                    <div className="min-w-0">
+                      <div className="font-semibold text-xs sm:text-sm">Instagram</div>
+                      <div className="text-xs sm:text-sm text-muted-foreground">@padelclub_ilyich</div>
                     </div>
                   </div>
                 </CardContent>
