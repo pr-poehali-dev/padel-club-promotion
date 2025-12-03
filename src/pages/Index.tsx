@@ -28,15 +28,17 @@ const Index = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          entry.target.classList.remove('opacity-0');
           entry.target.classList.add('animate-fade-in');
         }
       });
     }, observerOptions);
 
-    document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+    const elements = document.querySelectorAll('.scroll-animate');
+    elements.forEach(el => observer.observe(el));
 
     return () => observer.disconnect();
-  }, []);
+  }, [bookingStep]);
 
   const timeSlots = ['09:00', '10:30', '12:00', '13:30', '15:00', '16:30', '18:00', '19:30', '21:00'];
   const playerLevels = ['Начинающий', 'Любитель', 'Продвинутый', 'Профессионал'];
@@ -80,8 +82,8 @@ const Index = () => {
         <nav className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary" />
-              <span className="text-xl font-bold font-montserrat">PADEL</span>
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-300 to-green-500 border-2 border-green-600" />
+              <span className="text-lg sm:text-xl font-bold font-montserrat">PADEL КЛУБ ЗВИ</span>
             </div>
             
             <Sheet>
@@ -124,14 +126,55 @@ const Index = () => {
             <p className="text-lg sm:text-xl md:text-2xl mb-2 opacity-90">Завод имени Ильича</p>
             <p className="text-sm sm:text-base md:text-lg mb-8 opacity-75">Москва</p>
             
-            <Button 
-              size="lg" 
-              className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-primary hover:bg-primary/90"
-              onClick={() => scrollToSection('booking')}
-            >
-              <Icon name="Calendar" className="mr-2" />
-              Забронировать корт
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
+              <Button 
+                size="lg" 
+                className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-primary hover:bg-primary/90 w-full sm:w-auto"
+                onClick={() => scrollToSection('booking')}
+              >
+                <Icon name="Calendar" className="mr-2" />
+                Забронировать корт
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline"
+                className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 w-full sm:w-auto"
+                onClick={() => scrollToSection('services')}
+              >
+                <Icon name="Info" className="mr-2" />
+                Наши услуги
+              </Button>
+            </div>
+            
+            <div className="mt-8 flex flex-wrap gap-4 justify-center">
+              <Button 
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/10 text-sm"
+                onClick={() => scrollToSection('courts')}
+              >
+                <Icon name="MapPin" className="mr-2" size={16} />
+                Корты
+              </Button>
+              <Button 
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/10 text-sm"
+                onClick={() => scrollToSection('gallery')}
+              >
+                <Icon name="Image" className="mr-2" size={16} />
+                Галерея
+              </Button>
+              <Button 
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/10 text-sm"
+                onClick={() => scrollToSection('contacts')}
+              >
+                <Icon name="Phone" className="mr-2" size={16} />
+                Контакты
+              </Button>
+            </div>
           </div>
         </section>
 
@@ -472,8 +515,8 @@ const Index = () => {
       <footer className="bg-foreground text-background py-6">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-secondary" />
-            <span className="text-lg font-bold font-montserrat">PADEL CLUB</span>
+            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-300 to-green-500 border-2 border-green-600" />
+            <span className="text-lg font-bold font-montserrat">PADEL КЛУБ ЗВИ</span>
           </div>
           <p className="text-xs opacity-70">© 2024 Padel Club. Все права защищены.</p>
         </div>
