@@ -88,19 +88,61 @@ const Index = () => {
             
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" size="icon" className="hover:bg-primary/10">
                   <Icon name="Menu" />
                 </Button>
               </SheetTrigger>
-              <SheetContent>
-                <div className="flex flex-col gap-6 mt-8">
-                  <button onClick={() => scrollToSection('hero')} className="text-lg font-semibold hover:text-primary transition-colors text-left">Главная</button>
-                  <button onClick={() => scrollToSection('booking')} className="text-lg font-semibold hover:text-primary transition-colors text-left">Бронирование</button>
-                  <button onClick={() => scrollToSection('about')} className="text-lg font-semibold hover:text-primary transition-colors text-left">О клубе</button>
-                  <button onClick={() => scrollToSection('courts')} className="text-lg font-semibold hover:text-primary transition-colors text-left">Корты</button>
-                  <button onClick={() => scrollToSection('gallery')} className="text-lg font-semibold hover:text-primary transition-colors text-left">Галерея</button>
-                  <button onClick={() => scrollToSection('services')} className="text-lg font-semibold hover:text-primary transition-colors text-left">Услуги</button>
-                  <button onClick={() => scrollToSection('contacts')} className="text-lg font-semibold hover:text-primary transition-colors text-left">Контакты</button>
+              <SheetContent className="w-[300px] sm:w-[400px]">
+                <div className="flex flex-col gap-1 mt-12">
+                  <button 
+                    onClick={() => scrollToSection('hero')} 
+                    className="text-left px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-all font-semibold flex items-center gap-3 group"
+                  >
+                    <Icon name="Home" size={20} className="text-primary" />
+                    <span>Главная</span>
+                  </button>
+                  <button 
+                    onClick={() => scrollToSection('booking')} 
+                    className="text-left px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-all font-semibold flex items-center gap-3 group"
+                  >
+                    <Icon name="Calendar" size={20} className="text-primary" />
+                    <span>Бронирование</span>
+                  </button>
+                  <button 
+                    onClick={() => scrollToSection('about')} 
+                    className="text-left px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-all font-semibold flex items-center gap-3 group"
+                  >
+                    <Icon name="Info" size={20} className="text-primary" />
+                    <span>О клубе</span>
+                  </button>
+                  <button 
+                    onClick={() => scrollToSection('courts')} 
+                    className="text-left px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-all font-semibold flex items-center gap-3 group"
+                  >
+                    <Icon name="MapPin" size={20} className="text-primary" />
+                    <span>Корты</span>
+                  </button>
+                  <button 
+                    onClick={() => scrollToSection('gallery')} 
+                    className="text-left px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-all font-semibold flex items-center gap-3 group"
+                  >
+                    <Icon name="Image" size={20} className="text-primary" />
+                    <span>Галерея</span>
+                  </button>
+                  <button 
+                    onClick={() => scrollToSection('services')} 
+                    className="text-left px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-all font-semibold flex items-center gap-3 group"
+                  >
+                    <Icon name="Sparkles" size={20} className="text-primary" />
+                    <span>Услуги</span>
+                  </button>
+                  <button 
+                    onClick={() => scrollToSection('contacts')} 
+                    className="text-left px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-all font-semibold flex items-center gap-3 group"
+                  >
+                    <Icon name="Phone" size={20} className="text-primary" />
+                    <span>Контакты</span>
+                  </button>
                 </div>
               </SheetContent>
             </Sheet>
